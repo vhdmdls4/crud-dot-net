@@ -1,8 +1,28 @@
+using crud_dot_net.DatabaseContext;
+using crud_dot_net.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.Configure<DbSettings>(
+    builder.Configuration.GetSection("DbSettings"));
+
+builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) => 
+{
+    var dbSettings = serviceProvider.GetRequiredService<IOptions<DbSettings>>().Value;
+    options.UseNpgsql(dbSettings.ConnectionString);
+});
 
 var app = builder.Build();
 
@@ -10,10 +30,16 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "Sample API"));
 }
 
 app.UseHttpsRedirection();
-//
+
+app.UseAuthorization();
+app.MapControllers();
+
+
 // var summaries = new[]
 // {
 //     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"

@@ -2,7 +2,7 @@
 
 namespace crud_dot_net.Models;
 
-public class User
+public class User : EntityBase
 {
     [Key]
     public long Id { get; set; }

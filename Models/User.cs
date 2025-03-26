@@ -11,5 +11,5 @@ public class User : EntityBase
     public string Email { get; set; }
     public string Phone { get; set; }
     public string Document { get; set; }
-    public List<Loan> Loans { get; set; }
+    public ICollection<Loan> Loans { get; set; }
 }

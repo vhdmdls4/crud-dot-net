@@ -2,7 +2,7 @@
 
 public abstract class EntityBase
 {
-    public Guid uuid { get; set; }
+    public Guid Uuid { get; set; }
     public DateTimeOffset Created { get; set; }
     public DateTimeOffset LastModified { get; set; }
     

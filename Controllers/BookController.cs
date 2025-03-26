@@ -77,7 +77,7 @@ public class BookController : ControllerBase
             return StatusCode(500, "An error occurred while processing your request.");
         }
     }
-
+    [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(long id)
     {
         try

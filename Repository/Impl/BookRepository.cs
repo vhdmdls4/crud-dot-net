@@ -18,7 +18,7 @@ public class BookRepository : IBookRepository
         return await _context.Books.FindAsync(id);
     }
 
-    public async Task<List<Book?>> GetAllAsync()
+    public async Task<IEnumerable<Book>> GetAllAsync()
     {
         return await _context.Books.ToListAsync();
     }
@@ -38,10 +38,12 @@ public class BookRepository : IBookRepository
     public async Task DeleteAsync(long id)
     {
         var book = await _context.Books.FindAsync(id);
-        if (book != null)
+        if (book == null)
         {
-            _context.Books.Remove(book);
-            await _context.SaveChangesAsync();
+            throw new KeyNotFoundException($"Book with id {id} was not found");
         }
+
+        _context.Books.Remove(book);
+        await _context.SaveChangesAsync();
     }
 }

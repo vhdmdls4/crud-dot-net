@@ -9,11 +9,13 @@ public class BookService : IBookService
 {
     private readonly IBookRepository _repository;
     private readonly IMapper _mapper;
+    private readonly ILogger<BookService> _logger;
 
-    public BookService(IBookRepository repository, IMapper mapper)
+    public BookService(IBookRepository repository, IMapper mapper, ILogger<BookService> logger)
     {
         _repository = repository;
         _mapper = mapper;
+        _logger = logger;
     }
     
     public async Task<Book?> GetByIdAsync(long id)
@@ -21,25 +23,28 @@ public class BookService : IBookService
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task<List<Book?>> GetAllAsync()
+    public async Task<IEnumerable<Book>> GetAllAsync()
     {
         return await _repository.GetAllAsync();
     }
 
-    public async Task AddAsync(CreateBookRequest request)
+    public async Task<Book> AddAsync(CreateBookRequest request)
     {
         var book = _mapper.Map<Book>(request);
         await _repository.AddAsync(book);
+        return book;
     }
 
-    public async Task UpdateAsync(long id, CreateBookRequest request)
+    public async Task<Book> UpdateAsync(long id, CreateBookRequest request)
     {
         var book = await _repository.GetByIdAsync(id);
-        if (book != null)
+        if (book == null)
         {
-            _mapper.Map(request, book);
-            await _repository.UpdateAsync(book);
+            throw new KeyNotFoundException($"Book with id {id} not found");
         }
+        _mapper.Map(request, book);
+        await _repository.UpdateAsync(book);
+        return book;
     }
 
     public async Task DeleteAsync(long id)

@@ -10,10 +10,19 @@ public class LoanConfiguration : IEntityTypeConfiguration<Loan>
     {
         builder.ToTable("Loans")
             .HasKey(x => x.Id);
-        builder.Property(x => x.BookId)
-            .IsRequired();
-        builder.Property(x => x.UserId)
-            .IsRequired();
+        
+        builder.HasOne(x => x.Book)
+            .WithMany()
+            .HasForeignKey(x => x.BookId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(x => x.User)
+            .WithMany(u => u.Loans)
+            .HasForeignKey(x => x.UserId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
+        
         builder.Property(x => x.StartDate)
             .IsRequired();
         builder.Property(x => x.EndDate)

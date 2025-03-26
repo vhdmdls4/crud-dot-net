@@ -28,6 +28,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
         builder.HasMany(x => x.Loans)
             .WithOne()
-            .HasForeignKey(x => x.UserId);
+            .HasForeignKey(x => x.User);
+        builder.Property(x => x.Uuid);
     }
 }

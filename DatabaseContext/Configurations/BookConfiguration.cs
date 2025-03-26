@@ -25,5 +25,7 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
             .IsRequired();
         builder.Property(x => x.PublishDate)
             .IsRequired();
+        
+        builder.HasIndex(x => x.Uuid);
     }
 }

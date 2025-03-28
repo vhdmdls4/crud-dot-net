@@ -10,13 +10,8 @@ public class AutoMapperProfile : Profile
     {
         {
             CreateMap<CreateBookRequest, Book>()
-                .ForMember(book => book.Id, opt => opt.Ignore())
-                .ForMember(book => book.Uuid, opt => opt.MapFrom(src => Guid.NewGuid()))
-                .ForMember(book => book.Title, opt => opt.MapFrom(src => src.Title))
-                .ForMember(book => book.Author, opt => opt.MapFrom(src => src.Author))
-                .ForMember(book => book.Summary, opt => opt.MapFrom(src => src.Summary))
-                .ForMember(book => book.PublishDate, opt => opt.MapFrom(src => src.PublishDate))
-                .ForMember(book => book.Quantity, opt => opt.MapFrom(src => src.Quantity));
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Uuid, opt => opt.MapFrom(_ => Guid.NewGuid()));
         }
     }
 }

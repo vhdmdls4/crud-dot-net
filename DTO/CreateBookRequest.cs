@@ -2,7 +2,7 @@
 
 namespace crud_dot_net.DTO;
 
-public record CreateBookRequest(string Title, string Author, string Summary, DateTime PublishDate, int Quantity)
+public class CreateBookRequest(string Title, string Author, string Summary, DateTime PublishDate, int Quantity)
 {
     [Required]
     [StringLength(150)]

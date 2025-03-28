@@ -1,6 +1,16 @@
 @crud_dot_net_HostAddress = http://localhost:5098
 
-GET {{crud_dot_net_HostAddress}}/weatherforecast/
-Accept: application/json
+POST http://localhost:5098/api/book/add
+Content-Type: application/json
 
-###
+{
+  "Title": "New Book Title",
+  "Author": "Author Name",
+  "Summary": "This is a summary of the new book.",
+  "PublishDate": "2023-10-01T00:00:00Z",
+  "Quantity": 10
+}
+
+### GET request with parameter
+GET http://localhost:5098/api/book/
+Accept: application/json

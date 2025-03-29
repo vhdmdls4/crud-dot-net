@@ -5,13 +5,11 @@ namespace crud_dot_net.Models;
 
 public class Loan
 {
-    public Loan(long id, long bookId, long userId, DateTime startDate, DateTime endDate)
+    public Loan(long bookId, long userId, DateTime startDate)
     {
-        Id = id;
         BookId = bookId;
         UserId = userId;
         StartDate = startDate;
-        EndDate = endDate;
         Returned = false;
     }
 

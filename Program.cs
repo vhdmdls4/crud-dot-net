@@ -1,17 +1,14 @@
 using crud_dot_net.DatabaseContext;
+using crud_dot_net.Registers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddOpenApi();
+builder.Services
+    .AddInfrastructure(builder.Configuration)
+    .AddApplication()
+    .AddPresentation();
 
-builder.Services.AddDbContext<AppDbContext>(options => 
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
@@ -24,6 +21,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+// app.UseInfrastructure();
 app.UseAuthorization();
 app.MapControllers();
 

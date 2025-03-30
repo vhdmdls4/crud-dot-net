@@ -4,6 +4,17 @@ namespace crud_dot_net.Models;
 
 public class User : EntityBase
 {
+    public User(long id, string name, string password, string email, string phone, string document, ICollection<Loan> loans)
+    {
+        Id = id;
+        Name = name;
+        Password = password;
+        Email = email;
+        Phone = phone;
+        Document = document;
+        Loans = loans;
+    }
+
     [Key]
     public long Id { get; set; }
     public string Name { get; set; }

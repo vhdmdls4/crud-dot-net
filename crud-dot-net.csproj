@@ -28,6 +28,7 @@
       <Folder Include="Controllers\" />
       <Folder Include="Mapping\" />
       <Folder Include="Middleware\" />
+      <Folder Include="Migrations\" />
       <Folder Include="Services\" />
     </ItemGroup>
 

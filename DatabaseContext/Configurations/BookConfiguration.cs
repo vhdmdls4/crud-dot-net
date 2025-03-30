@@ -11,15 +11,15 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
         builder.ToTable("Books")
             .HasKey(x => x.Id);
         builder.Property(x => x.Author)
-            .HasMaxLength(50)
+            .HasMaxLength(150)
             .IsRequired();
         builder.Property(x => x.Title)
             .HasMaxLength(150)
             .IsRequired();
         builder.Property(x => x.Quantity)
             .IsRequired();
-        builder.Property(x => x.Uuid)
-            .IsRequired();
+        // builder.Property(x => x.Uuid)
+        //     .IsRequired();
         builder.Property(x => x.Summary)
             .HasMaxLength(500)
             .IsRequired();

@@ -5,16 +5,6 @@ namespace crud_dot_net.Models;
 
 public class Loan
 {
-    public Loan(long bookId, long userId, DateTime startDate, Book book, User user)
-    {
-        BookId = bookId;
-        UserId = userId;
-        StartDate = startDate;
-        Book = book;
-        User = user;
-        Returned = false;
-    }
-
     [Key]
     public long Id { get; set; }
     [Required] 
